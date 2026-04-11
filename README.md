@@ -1,4 +1,4 @@
-# Aplikasi Web Sistem Absensi Sekolah Berbasis `QR Code` <br> (+ Dukungan RFID)
+# Aplikasi Web Sistem Absensi Sekolah Berbasis `Tap Kartu` <br> (RFID)
 
 <a href="https://github.com/ikhsan3adi/absensi-sekolah-qr-code/actions/workflows/ci.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/ikhsan3adi/absensi-sekolah-qr-code/ci.yml?branch=master&style=for-the-badge&label=Continuous%20Integration&labelColor=%239f39b5&logo=github" alt="Continuous Integration">
