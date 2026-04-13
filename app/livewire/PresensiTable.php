@@ -13,12 +13,12 @@ class PresensiTable extends Component
         $today = Carbon::today();
 
         return view('livewire.presensi-table', [
-            'totalHariIni' => Presensi::whereDate('created_at', $today)->count(),
+            'totalHariIni' => Presensi::whereDate('tanggal', $today)->count(),
             'terlambat'    => Presensi::where('status', 'terlambat')
-                                ->whereDate('created_at', $today)
+                                ->whereDate('tanggal', $today)
                                 ->count(),
-            // TAMBAHKAN 'jadwal' di dalam with() agar nama kegiatan bisa dipanggil
             'latest'       => Presensi::with(['santri', 'jadwal'])
+                                ->whereDate('tanggal', $today) // Tambahkan baris ini
                                 ->latest()
                                 ->limit(10)
                                 ->get(),
