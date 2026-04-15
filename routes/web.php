@@ -8,6 +8,7 @@ use App\Http\Controllers\SantriController;
 Route::resource('santri', SantriController::class);
 Route::get('/presensi', [PresensiWebController::class,'index']);
 Route::get('/dashboard', [DashboardController::class,'index']);
+Route::get('/presensi/export', [PresensiWebController::class, 'exportExcel'])->name('presensi.export');
 Route::get('/', function () {
     return view('welcome');
 });

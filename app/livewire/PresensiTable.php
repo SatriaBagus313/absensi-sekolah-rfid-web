@@ -18,7 +18,7 @@ class PresensiTable extends Component
                                 ->whereDate('tanggal', $today)
                                 ->count(),
             'latest'       => Presensi::with(['santri', 'jadwal'])
-                                ->whereDate('tanggal', $today) // Tambahkan baris ini
+                                ->whereDate('tanggal', $today) // 
                                 ->latest()
                                 ->limit(10)
                                 ->get(),

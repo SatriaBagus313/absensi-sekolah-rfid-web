@@ -1,18 +1,26 @@
 @extends('layouts.app')
 
-@section('content')
 @section('title', 'Log Presensi')
 
-
+@section('content')
+<div class="container-fluid"> 
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div class="card-body p-0">
             <div class="p-4 bg-light border-bottom">
-                <form action="/presensi" method="GET" class="row g-3">
+                <form action="/presensi" method="GET" class="row g-3 align-items-end">
                     <div class="col-md-3">
+                        <label class="small fw-bold text-muted mb-1">Pilih Tanggal</label>
                         <input type="date" name="tanggal" class="form-control" value="{{ request('tanggal') ?? date('Y-m-d') }}">
                     </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary px-4">Filter</button>
+                    
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-funnel"></i> Filter
+                        </button>
+                        
+                        <a href="{{ route('presensi.export', ['tanggal' => request('tanggal')]) }}" class="btn btn-success px-4 ms-2">
+                            <i class="bi bi-file-earmark-excel"></i> Export Excel
+                        </a>
                     </div>
                 </form>
             </div>
@@ -28,9 +36,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($presensi as $data)
+                        @forelse($logs as $data)
                         <tr>
-                            </tr>
+                            <td class="ps-4">{{ $data->santri->nama ?? '-' }}</td>
+                            <td class="text-center">{{ $data->jadwal->nama_kegiatan ?? '-' }}</td>
+                            <td class="text-center">
+                                <span class="badge {{ $data->status == 'hadir' ? 'bg-success' : 'bg-danger' }}">
+                                    {{ ucfirst($data->status) }}
+                                </span>
+                            </td>
+                            <td class="pe-4 text-end">{{ $data->jam_masuk }}</td>
+                        </tr>
                         @empty
                         <tr>
                             <td colspan="4" class="text-center py-5 text-muted">
