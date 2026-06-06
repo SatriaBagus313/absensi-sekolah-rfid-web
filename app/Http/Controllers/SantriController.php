@@ -20,22 +20,21 @@ class SantriController extends Controller
     }
 
     public function store(Request $request)
-{
-    // 1. Simpan ke tabel santris
-    $santri = Santri::create([
-        'nama'  => $request->nama,
-        'kelas' => $request->kelas,
-        'nis'   => $request->nis,
-    ]);
+    {
+        $request->validate([
+            'nama'  => 'required|string|max:255',
+            'kelas' => 'required',
+            'uid'   => 'nullable|unique:santri,uid',
+        ]);
 
-    // 2. Simpan UID ke tabel rfid_cards (Hubungkan via santri_id)
-    \App\Models\RfidCard::create([
-        'santri_id' => $santri->id, // ID santri yang baru saja dibuat
-        'uid'       => $request->uid,
-    ]);
+        Santri::create([
+            'nama'  => $request->nama,
+            'kelas' => $request->kelas,
+            'uid'   => $request->uid,
+        ]);
 
-    return redirect('/santri')->with('success', 'Data Berhasil Disimpan!');
-}
+        return redirect('/santri')->with('success', 'Data Berhasil Disimpan!');
+    }
 
     public function edit($id)
     {
@@ -51,7 +50,7 @@ class SantriController extends Controller
         // Validasi update: UID unik kecuali untuk santri yang sedang diedit ini sendiri
         $request->validate([
             'nama'  => 'required|string|max:255',
-            'uid'   => 'nullable|unique:santris,uid,' . $id,
+            'uid'   => 'nullable|unique:santri,uid,' . $id,
             'kelas' => 'required'
         ]);
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\RfidCard;
+
 use App\Models\Presensi;
 use App\Models\Jadwal;
 use App\Models\Santri;
@@ -29,26 +29,14 @@ class PresensiController extends Controller
             $uid = strtolower(trim($request->uid));
 
             // =============================
-            // 1. CEK KARTU RFID
+            // 1. CARI SANTRI BERDASARKAN UID
             // =============================
-            $card = RfidCard::where('uid', $uid)->first();
-
-            if (!$card) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Kartu tidak terdaftar'
-                ], 404);
-            }
-
-            // =============================
-            // 2. AMBIL SANTRI
-            // =============================
-            $santri = Santri::find($card->santri_id);
+            $santri = Santri::where('uid', $uid)->first();
 
             if (!$santri) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Santri tidak ditemukan'
+                    'message' => 'Kartu tidak terdaftar'
                 ], 404);
             }
 

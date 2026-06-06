@@ -9,23 +9,13 @@ class Santri extends Model
 {
     use HasFactory;
 
-    protected $table = 'santris';
+    protected $table = 'santri';
 
     protected $fillable = [
         'nama',
-        'uid', // Tetap ada jika kamu ingin simpan cadangan di tabel santri
-        'nis',
+        'uid',
         'kelas'
     ];
 
-    /**
-     * Relasi ke tabel rfid_cards
-     * Menghubungkan id di tabel santris ke santri_id di tabel rfid_cards
-     */
-    public function rfidCard()
-    {
-        // Parameter kedua adalah foreign key di tabel rfid_cards
-        return $this->hasOne(RfidCard::class, 'santri_id');
-    }
 }
 
